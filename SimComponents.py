@@ -175,6 +175,7 @@ class SwitchPort(object):
     def run(self):
         while True:
             msg = (yield self.store.get())
+            print('msg',msg.id, msg.src)
             self.busy = 1
             self.byte_size -= msg.size
             yield self.env.timeout(msg.size*8.0/self.rate)
