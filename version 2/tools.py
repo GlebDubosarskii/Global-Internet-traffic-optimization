@@ -1,6 +1,54 @@
 import sys
 import colorama
 
+def ReadNetwork(file_name):
+    
+    with open('test/'+file_name, 'r') as f:
+
+        N=int(f.readline())
+        next(f)
+
+        router_data_rate=list(map(float,f.readline().split()))
+
+        con, U = ReadEdges(f, N)
+
+        f.close()
+        
+    return router_data_rate, con, U
+
+    
+
+def ReadEdges(f, N):
+    
+    edges=[]
+    con=[[] for _ in range(N+1)]
+    
+    for line in f:
+        x,y,w=map(float,line.split())
+        x,y=int(x),int(y)
+
+        con[x].append((y,w))
+        edges.append((x,y,w))
+        
+    return con, edges
+    
+
+def ReadGraph(file_name):
+     
+    with open('test/'+file_name, 'r') as f:
+    
+        N=int(f.readline())
+        next(f)
+
+        con, edges = ReadEdges(f, N)
+
+
+        f.close()
+        
+    return N, con, edges
+    
+    
+
 def WriteNetwork(file_name, N, edges, U, router_data_rate):
     with open('test/'+file_name, 'w') as f:
     
