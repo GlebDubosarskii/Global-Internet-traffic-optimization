@@ -1,6 +1,45 @@
 import sys
 import colorama
 
+def WriteNetwork(file_name, N, edges, U, router_data_rate):
+    with open('test/'+file_name, 'w') as f:
+    
+        f.write('{}\n\n'.format(N))
+
+
+        f.write(' '.join(map(str,router_data_rate)))
+        f.write('\n')
+
+
+        WriteEdges(f, edges, U)
+
+
+        f.close()
+    
+    
+    
+
+def WriteEdges(f, edges, weight):
+    
+    for e in edges:
+        x,y=e
+
+        f.write(str(x+1)+' '+str(y+1)+' '+str(weight[(x,y)])+'\n')
+        f.write(str(y+1)+' '+str(x+1)+' '+str(weight[(y,x)])+'\n')
+        
+        
+
+def WriteGraph(file_name, N, edges, weight):
+    with open('test/'+file_name, 'w') as f:
+    
+        f.write('{}\n\n'.format(N))
+
+        WriteEdges(f, edges, weight)
+
+        f.close()
+
+
+
 def getCompletePath(p):
     complete_path = list(p['path'])
 
