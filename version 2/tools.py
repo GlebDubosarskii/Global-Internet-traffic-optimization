@@ -8,13 +8,17 @@ def ReadNetwork(file_name):
         N=int(f.readline())
         next(f)
 
-        router_data_rate=list(map(float,f.readline().split()))
+        router_data_rate=[0]+list(map(float,f.readline().split()))
+        D=[0]*(N+1)
+        
+        for i in range(1,N+1):
+            D[i]=[0]+list(map(float,f.readline().split()))
 
         con, U = ReadEdges(f, N)
 
         f.close()
         
-    return router_data_rate, con, U
+    return router_data_rate, D, con, U
 
     
 
@@ -49,7 +53,7 @@ def ReadGraph(file_name):
     
     
 
-def WriteNetwork(file_name, N, edges, U, router_data_rate):
+def WriteNetwork(file_name, N, D, edges, U, router_data_rate):
     with open('test/'+file_name, 'w') as f:
     
         f.write('{}\n\n'.format(N))
@@ -57,6 +61,10 @@ def WriteNetwork(file_name, N, edges, U, router_data_rate):
 
         f.write(' '.join(map(str,router_data_rate)))
         f.write('\n')
+        
+        for i in range(1,N+1):
+            f.write(' '.join(map(str,D[i][1:])))
+            f.write('\n')
 
 
         WriteEdges(f, edges, U)
